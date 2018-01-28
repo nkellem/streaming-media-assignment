@@ -1,0 +1,26 @@
+{
+  "name": "streaming-media-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "test": "echo \"Tests complete\"",
+    "pretest": "eslint ./src --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkellem/streaming-media-assignment.git"
+  },
+  "author": "Noah Kellem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nkellem/streaming-media-assignment/issues"
+  },
+  "homepage": "https://github.com/nkellem/streaming-media-assignment#readme",
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
