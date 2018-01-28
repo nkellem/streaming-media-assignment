@@ -1,23 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 
-const getParty = (request, response) => {
-  const file = path.resolve(__dirname, '../client/party.mp4');
-
-  getFileStats(file, request, response, 'video/mp4');
+const writeStreamResponseHeader = (response, contentType, chunksize, contentRange, acceptRange) => {
+  response.writeHead(206, {
+    'Content-Range': contentRange,
+    'Accept-Ranges': acceptRange,
+    'Content-Length': chunksize,
+    'Content-Type': contentType,
+  });
 };
 
-const getBird = (request, response) => {
-  const file = path.resolve(__dirname, '../client/bird.mp4');
+const openStream = (file, start, end, response) => {
+  const stream = fs.createReadStream(file, { start, end });
 
-  getFileStats(file, request, response, 'video/mp4');
+  stream.on('open', () => {
+    stream.pipe(response);
+  });
+
+  return stream;
 };
 
-const getBling = (request, response) => {
-  const file = path.resolve(__dirname, '../client/bling.mp3');
-
-  getFileStats(file, request, response, 'audio/mpeg');
-}
 
 const getFileStats = (file, request, response, fileType) => {
   fs.stat(file, (err, stats) => {
@@ -53,23 +55,22 @@ const getFileStats = (file, request, response, fileType) => {
   });
 };
 
-const writeStreamResponseHeader = (response, contentType, chunksize, contentRange, acceptRange) => {
-  response.writeHead(206, {
-    'Content-Range': contentRange,
-    'Accept-Ranges': acceptRange,
-    'Content-Length': chunksize,
-    'Content-Type': contentType,
-  });
+const getParty = (request, response) => {
+  const file = path.resolve(__dirname, '../client/party.mp4');
+
+  getFileStats(file, request, response, 'video/mp4');
 };
 
-const openStream = (file, start, end, response) => {
-  const stream = fs.createReadStream(file, { start, end });
+const getBird = (request, response) => {
+  const file = path.resolve(__dirname, '../client/bird.mp4');
 
-  stream.on('open', () => {
-    stream.pipe(response);
-  });
+  getFileStats(file, request, response, 'video/mp4');
+};
 
-  return stream;
+const getBling = (request, response) => {
+  const file = path.resolve(__dirname, '../client/bling.mp3');
+
+  getFileStats(file, request, response, 'audio/mpeg');
 };
 
 module.exports.getParty = getParty;

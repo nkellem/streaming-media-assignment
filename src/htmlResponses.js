@@ -14,13 +14,13 @@ const getPage2 = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/html' });
   response.write(page2);
   response.end();
-}
+};
 
 const getPage3 = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/html' });
   response.write(page3);
   response.end();
-}
+};
 
 module.exports.getIndex = getIndex;
 module.exports.getPage2 = getPage2;
