@@ -30,7 +30,7 @@ const getFileStats = (file, request, response, fileType) => {
       return response.end(err);
     }
 
-    let range = request.headers.range;
+    let { range } = request.headers;
 
     if (!range) {
       range = 'bytes=0-';
